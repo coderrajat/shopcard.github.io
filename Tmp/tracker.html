@@ -1,0 +1,91 @@
+{% extends 'basic.html' %}
+{% block title %}Tracker{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col my-4">
+        <h2>Enter your Order_id and Email Address to track your order</h2>
+        <form method="post" id="trackerForm"  > {% csrf_token %}
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <label for="order" class="form-label">Order_ID</label>
+                    <input type="text" class="form-control" id="order" name='Order_id' placeholder="Order_id">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name='email' placeholder="abcd@email.com">
+                </div>
+                <div class="col my-4">
+                    <button type="submit" class="btn btn-primary">Track order</button>
+                </div>
+            </div>
+            <div class="my-4">
+                    <ul class="list-group" id="pro">
+                        <h2>Your Products</h2>
+                    </ul>
+            </div>
+            <div class="col my-4">
+                <h2>Your Order Status</h2>
+                <div class="my-4">
+                    <ul class="list-group" id="items">
+                        Enter your order Id and Email and click Track Order to find details about your order!
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+$('#trackerForm').submit(function(event) {
+    $('#items').empty();
+    var formData = {
+        'Order_id': $('input[name=Order_id]').val(),
+        'email': $('input[name=email]').val(),
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8000/Tracker/',
+            data: formData,
+            encode: true
+        })
+        .done(function(data) {
+            da= JSON.parse(data);
+            console.log(da[0])
+            updates=da[0]
+            if (da.length > 0 & da != {}) {
+                for (i = 0; i < updates.length; i++) {
+                    let text = updates[i]['text'];
+                    let time = updates[i]['time'];
+                    console.log(text,time)
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${text}
+                    <span class="badge bg-primary rounded-pill">${time}</span></li>`
+                    $('#items').append(mystr);
+                }
+            } else {
+                mystr = `<li class="list-group-item bg-warning">
+                <strong>Sorry!! </strong>
+                    We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
+                $('#items').append(mystr);
+            }
+            if (da.length > 0 & da != {}){
+                cart=JSON.parse(da[1])
+                console.log(cart[1])
+                for (item in cart) {
+                    let name = cart[item][1];
+                    let Qnt = cart[item][0];
+                    console.log(name,Qnt)
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${name}
+                    <span class="badge bg-primary rounded-pill">${Qnt}</span></li>`
+                    $('#pro').append(mystr);
+                }}
+        });
+
+    event.preventDefault();
+});
+</script>
+{% endblock %}
+

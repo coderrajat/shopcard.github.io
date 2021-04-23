@@ -1,0 +1,25 @@
+{% extends 'basic.html'%}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+<div class="container">
+    <form action="http://127.0.0.1:8000/Contact/" method="post">{% csrf_token %}
+    <div class="mb-3">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+    </div>
+    <div class="mb-3">
+      <label for="name">Number</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+    </div>
+    <div class="mb-3">
+      <label for="name">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="name">How can we help you?</label>
+      <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+    </div>
+    <button class="btn btn-success" type="submit">Submit</button>
+</form>
+</div>
+{% endblock %}
