@@ -23,6 +23,7 @@
     <div class="col my-4">
         <form method="post" action="http://127.0.0.1:8000/Checkout/">{% csrf_token %}
             <input type="hidden" name="itemjson" id="itemjson">
+            <input type="hidden" name="amount" id="amount">
             <div class="row">
                 <div class="col-md-6">
                     <label for="name" class="form-label">Name</label>
@@ -67,11 +68,12 @@
                 <label for="name" class="form-label">Zip</label>
                 <input type="tel" class="form-control" id="zipcode" name='zipcode' placeholder="123456">
               </div>
-              <div class="col my-4">
-                <button type="submit" id="sub" onclick="myFunction()" class="btn btn-primary">Place order</button>
+                <div class="col my-4">
+                <button type="submit" id="sub" class="btn btn-primary">Place order</button>
               </div>
             </div>
         </form>
+
     </div>
 </div>
 {% endblock %}
@@ -98,7 +100,6 @@
         let totalitem=cart[item][2]
 
         totalprice = totalprice+ (totalitem.slice(1,) * Qnt)
-        console.log(totalitem.slice(1,),"h",typeof Qnt)
         prodstr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}
         <span class="list-group">${totalitem}</span>
         <span class="badge bg-primary rounded-pill">${Qnt}</span></li>`
@@ -108,9 +109,14 @@
     document.getElementById("cart").innerHTML=sum
     document.getElementById("total").innerHTML=totalprice
     $('#itemjson').val(JSON.stringify(cart))
-    function myFunction() {
-        alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
-        localStorage.clear();
-        }
+   {% if thank %}
+    alert('Thanks for ordering with us. Your order is- {{id}}. Use it to track your order using our order tracker');
+    localStorage.clear();
+    document.location = "http://127.0.0.1:8000/";
+    {% endif %}
+
+    //console.log($("#amount").val($('#total').html()))
+    $("#amount").val($('#total').html())
+
 </script>
 {% endblock %}

@@ -2,14 +2,16 @@
 {% block title %}productview{% endblock %}
 {% block body %}
 <div class="container">
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-4">
             <div class="row">
                 <img src="/media/{{produc.image}}" width="223px" height="332px">
             </div>
             <div>
-                <button class="btn btn-primary  my-3">Buy Now </button>
-                <button class="btn btn-primary mx-4">Add to Cart</button>
+                <a  name="buy"><button id="buy" class="btn btn-primary  my-3">Buy Now </button></a>
+                <span id="divpr{{myid}}" class="divpr" >
+                    <button id="pr{{myid}}" class="btn btn-primary mx-4 cart">Add to Cart</button>
+                </span>
             </div>
         </div>
         <div class="col-md-8">
@@ -19,4 +21,68 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block js %}
+<script>
+if(localStorage.getItem('cart')=='{}'){
+var cart = {};
+}
+else
+{
+cart = JSON.parse(localStorage.getItem('cart'));
+updatcart(cart)
+}
+
+$('.cart').click(function(){
+var idstr = this.id.toString();
+if(cart[idstr] !=undefined){
+
+Qnt = cart[idstr][0] + 1;
+}
+else
+{
+Qnt = 1;
+name = "{{produc}}"
+price = {{price}}
+cart[idstr]=[Qnt,name,price]
+}
+updatcart(cart)
+})
+
+function updatcart(cart){
+var sum=0;
+for (var item in cart){
+sum=sum+cart[item][0]
+if(cart[item][1]=='{{produc}}'){
+document.getElementById('divpr'+{{myid}}).innerHTML = `<button id='minus${item}' class='btn btn-primary minus'>-</button> <span id='val${item}'>${cart[item][0]}</span> <button id='plus${item}' class='btn btn-primary plus'> + </button>`;
+}}
+localStorage.setItem('cart', JSON.stringify(cart));
+document.getElementById('cart').innerHTML = sum;
+}
+
+
+$(".divpr").on("click","button.minus",function(){
+a=this.id.slice(7,)
+cart['pr'+a][0]-=1
+cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])
+document.getElementById("valpr"+a).innerHTML=cart['pr'+a][0]
+if(cart['pr'+a][0]==0){
+document.getElementById('divpr'+{{myid}}).innerHTML="<button id='pr"+a+"' class='btn btn-primary cart'>Add to Cart</button>"
+delete cart['pr'+a]
+document.location='http://127.0.0.1:8000/Productview/{{myid}}'
+}
+else{
+document.getElementById("valpr"+a).innerHTML=cart['pr'+a][0]
+}
+updatcart(cart)
+});
+
+
+$(".divpr").on("click","button.plus",function(){
+a=this.id.slice(6,)
+cart['pr'+a][0]=cart['pr'+a][0]+1
+document.getElementById("valpr"+a).innerHTML=cart['pr'+a][0]
+updatcart(cart)
+});
+</script>
 {% endblock %}

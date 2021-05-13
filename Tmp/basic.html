@@ -35,8 +35,8 @@
                 <a class="nav-link " href="http://127.0.0.1:8000/About" >About</a>
               </li>
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" method="get" action="http://127.0.0.1:8000/Search/">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <button type="button" class="btn btn-secondary mx-3" id="popcart"  data-bs-container="body" data-html="true" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="bottom popover">

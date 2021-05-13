@@ -25,7 +25,8 @@ urlpatterns = [
     path("About/",shop.About,name='about'),
     path("Tracker/",shop.Tracker,name='tracker'),
     path("Search/",shop.Search,name='search'),
-    path("Products/<int:myid>",shop.Productview,name='prodview'),
+    path("Productview/<int:myid>",shop.Productview,name='prodview'),
     path("Checkout/",shop.Checkout,name='checkout'),
+    path("Handlerequest/",shop.Handlerequest,name="handlerquest")
 
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -25,6 +25,7 @@ class contact(models.Model):
 
 class checkout(models.Model):
     prod_id = models.AutoField(primary_key=True)
+    amount=models.IntegerField(default=0)
     item_json = models.CharField(max_length=3000)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50,default="")
