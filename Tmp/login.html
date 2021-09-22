@@ -1,0 +1,22 @@
+{% extends 'basic.html'%}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="container">
+    <form action="http://127.0.0.1:8000/Login/" method="post">{% csrf_token %}
+    <div class="mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+    </div>
+
+    <div class="mb-3">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="Password" name="Password" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="desc">I am sure.</label>
+      <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+    </div>
+    <button class="btn btn-success" type="submit">Login</button>
+</form>
+</div>
+{% endblock %}

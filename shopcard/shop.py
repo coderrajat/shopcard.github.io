@@ -164,3 +164,9 @@ def Handlerequest(request):
                 else:
                     print("Opps! your payment is not success"+response_dict['RESPMSG'])
     return render(request, 'paymentstatus.html', {'response': response_dict})
+
+def Login(request):
+    return render(request,'login.html')
+def SignUp(request):
+    return render(request,'SignUp.html')
+

@@ -43,3 +43,14 @@ class updateorder(models.Model):
 
     def __str__(self):
         return self.update_desc[0:8]+"..."
+class signup(models.Model):
+    Name=models.CharField(max_length=25)
+    phone = models.CharField(max_length=50, primary_key=True)
+    email = models.CharField(max_length=50, unique=True)
+    address = models.CharField(max_length=300, default="")
+    city = models.CharField(max_length=25, default="")
+    state = models.CharField(max_length=30, default="")
+    zip_code = models.CharField(max_length=10, default="")
+    Password=models.CharField(max_length=15)
+
+

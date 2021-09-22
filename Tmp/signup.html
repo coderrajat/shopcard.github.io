@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'basic.html'%}
+{% block title %}SignUp{% endblock %}
+{% block body %}
+<div class="container my-4">
+    <div class="col my-4">
+        <form method="post" action="http://127.0.0.1:8000/Checkout/">{% csrf_token %}
+            <input type="hidden" name="itemjson" id="itemjson">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="Name" class="form-control" id="name" name='name' placeholder="Enter your name">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name='email' placeholder="abcd@email.com">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="name" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name='phone' placeholder="Enter your Phone Number">
+              </div>
+            <div class="col-md-4">
+                <label for="name" class="form-label" >Gender</label>
+                <select id="Gender" class="form-select"name='Gender'>
+                  <option selected>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="name" class="form-label">Address line 1</label>
+                <input type="text" class="form-control" id="address-1" name='address-1'placeholder="Address Details">
+              </div>
+              <div class="col-12">
+                <label for="name" class="form-label">Address line 2</label>
+                <input type="text" class="form-control" id="address-2" name='adress-2' placeholder="Apartment, studio, or floor">
+              </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="name" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name='city' placeholder="City Name">
+              </div>
+              <div class="col-md-4">
+                <label for="name" class="form-label" >State</label>
+                <select id="state" class="form-select"name='state'>
+                  <option selected>Choose...</option>
+                  <option>Andhra Pradesh</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Arunachal Pradesh</option>
+                    <option>Assam</option>
+                    <option>Bihar</option>
+                    <option>Chhattisgarh</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="name" class="form-label">ZipCode</label>
+                <input type="tel" class="form-control" id="zipcode" name='zipcode' placeholder="123456">
+              </div>
+                <div class="col my-4">
+                <button type="submit" id="sub" class="btn btn-primary">SignUp</button>
+              </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
